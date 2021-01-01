@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Day01
 {
-    class Program
+    internal static class Program
     {
         private static void Main()
         {
@@ -13,17 +13,17 @@ namespace Day01
             SolvePart2();
         }
 
-        static void SolvePart1()
+        private static void SolvePart1()
         {
-            string input = File.ReadAllText("Input.txt");
-            List<string> data = input.Split('\n').ToList();
+            var input = File.ReadAllText("Input.txt");
+            var data = input.Split('\n').ToList();
             Console.WriteLine(data);
         }
 
-        static void SolvePart2()
+        private static void SolvePart2()
         {
-            string input = File.ReadAllText("Input.txt");
-            List<string> data = input.Split('\n').ToList();
+            var input = File.ReadAllText("Input.txt");
+            var data = input.Split('\n').ToList();
             Console.WriteLine(data);
         }
     }
