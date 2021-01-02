@@ -17,12 +17,24 @@ namespace Day07
             var input = File.ReadAllText("Input.txt");
             var data = input.Split('\n').ToList();
             var count = 0;
-            foreach (var s in data)
+            foreach (var s in data.Where(s => s != ""))
             {
-                if (s == "") continue;
+                bool found = false;
+                for (var i = 0; i < s.Length - 3; i++)
+                {
+                    if (!Check(s.Substring(i, 4))) continue;
+                    if (s.Substring(0, i).LastIndexOf("[", StringComparison.Ordinal) > s.Substring(0, i).LastIndexOf("]", StringComparison.Ordinal))
+                    {
+                        found = false;
+                        break;
+                    }
 
+                    found = true;
+                }
+
+                if (found) count++;
             }
-            Console.WriteLine("");
+            Console.WriteLine(count);
         }
 
         private static void SolvePart2()
@@ -34,8 +46,7 @@ namespace Day07
 
         private static bool Check(string s)
         {
-            if (s[0] == s[3] && s[1] == s[2] && s[0] != s[1]) return true;
-            return false;
+            return s[0] == s[3] && s[1] == s[2] && s[0] != s[1];
         }
     }
 }
