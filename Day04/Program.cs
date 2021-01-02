@@ -41,7 +41,6 @@ namespace Day04
         {
             var input = File.ReadAllText("Input.txt");
             var data = input.Split('\n').ToList();
-            //var idSum = 0;
             var rooms = new List<(string, int)>();
             foreach (var s in data.Where(s => s != ""))
             {
