@@ -36,9 +36,31 @@ namespace Day05
 
         private static void SolvePart2()
         {
-            var input = File.ReadAllText("Input.txt");
-            var data = input.Split('\n').ToList();
-            Console.WriteLine("");
+            var key = File.ReadAllText("Input.txt");
+            var password = new char[8];
+            var i = 0;
+            using (var md5 = MD5.Create())
+            {
+                while (password.Any(c => c == '\0'))
+                {
+                    var hash = md5.ComputeHash(Encoding.UTF8.GetBytes(key + i.ToString()));
+                    var hex = BitConverter.ToString(hash).Replace("-", "");
+                    if (hex.Substring(0, 5) == "00000" && char.IsDigit(hex[5]))
+                    {
+                        var pos = int.Parse(hex[5].ToString());
+                        if (pos < 8 && password[pos] == '\0')
+                        {
+                            password[pos] = hex[6];
+                        }
+                    }
+
+                    i++;
+                }
+            }
+
+            var s = password.Aggregate("", (current, c) => current + char.ToLower(c));
+
+            Console.WriteLine("Password = " + s);
         }
     }
 }
