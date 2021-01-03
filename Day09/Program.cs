@@ -43,7 +43,27 @@ namespace Day09
         {
             var input = File.ReadAllText("Input.txt");
             var data = input.Split('\n').ToList();
-            Console.WriteLine("");
+            var s = data[0];
+            var ss = "";
+            for (var i = 0; i < s.Length; i++)
+            {
+                if (s[i] == '(')
+                {
+                    var ii = s[i..].IndexOf(')');
+                    var sss = s.Substring(i + 1, ii - 1);
+                    var dims = sss.Split(("x"));
+                    var letterCount = int.Parse(dims[0]);
+                    var multiCount = int.Parse(dims[1]);
+                    var stringToMulti = s[(i + ii + 1)..(i + ii + letterCount + 1)];
+                    ss += MultiplyString(stringToMulti, multiCount);
+                    i += ii + letterCount;
+                }
+                else
+                {
+                    ss += s[i];
+                }
+            }
+            Console.WriteLine("Decrypted Length = " + ss.Length);
         }
 
         private static string MultiplyString(string s, int count)
