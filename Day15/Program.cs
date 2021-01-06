@@ -20,8 +20,8 @@ namespace Day15
             var discs = new List<Disc>();
             foreach (var s in data)
             {
-                var parts = s.Split(" ");
                 if (s == "") continue;
+                var parts = s.Split(" ");
                 discs.Add(new Disc
                 {
                     id = int.Parse(parts[1][1].ToString()),
@@ -29,7 +29,22 @@ namespace Day15
                     position = int.Parse(parts[11].Replace(".", ""))
                 });
             }
-            Console.WriteLine("");
+            var t = -1;
+            bool done = false;
+            while (!done)
+            {
+                t++;
+                done = true;
+                foreach (var d in discs)
+                {
+                    var tt = d.id + t + d.position;
+                    if (tt % d.numPositions != 0)
+                    {
+                        done = false;
+                    }
+                }
+            }
+            Console.WriteLine("Time = " + t);
         }
 
         private static void SolvePart2()
