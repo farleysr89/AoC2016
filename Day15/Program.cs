@@ -51,7 +51,40 @@ namespace Day15
         {
             var input = File.ReadAllText("Input.txt");
             var data = input.Split('\n').ToList();
-            Console.WriteLine("");
+            var discs = new List<Disc>();
+            foreach (var s in data)
+            {
+                if (s == "") continue;
+                var parts = s.Split(" ");
+                discs.Add(new Disc
+                {
+                    id = int.Parse(parts[1][1].ToString()),
+                    numPositions = int.Parse(parts[3]),
+                    position = int.Parse(parts[11].Replace(".", ""))
+                });
+            }
+            discs.Add(new Disc
+            {
+                id = discs.Max(x => x.id) + 1,
+                numPositions = 11,
+                position = 0
+            });
+            var t = -1;
+            bool done = false;
+            while (!done)
+            {
+                t++;
+                done = true;
+                foreach (var d in discs)
+                {
+                    var tt = d.id + t + d.position;
+                    if (tt % d.numPositions != 0)
+                    {
+                        done = false;
+                    }
+                }
+            }
+            Console.WriteLine("Time = " + t);
         }
     }
     public class Disc
