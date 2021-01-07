@@ -38,8 +38,21 @@ namespace Day17
         private static void SolvePart2()
         {
             var input = File.ReadAllText("Input.txt");
-            var data = input.Split('\n').ToList();
-            Console.WriteLine("");
+            // ReSharper disable once StringLiteralTypo
+
+            var passcode = input.Split('\n')[0];
+            int x = 0, y = 0, destX = 3, destY = 3;
+            var s = Utils.GetHash(passcode)[0..4];
+            var solutions = new List<string>();
+            if (ValidChars.Contains(s[1]))
+            {
+                solutions.AddRange(Solve(x, y + 1, destX, destY, passcode + "D"));
+            }
+            if (ValidChars.Contains(s[3]))
+            {
+                solutions.AddRange(Solve(x + 1, y, destX, destY, passcode + "R"));
+            }
+            Console.WriteLine("Shortest Path is " + solutions.OrderByDescending(p => p.Length).First()[passcode.Length..].Length);
         }
 
         private static IEnumerable<string> Solve(int x, int y, int destX, int destY, string passcode)
