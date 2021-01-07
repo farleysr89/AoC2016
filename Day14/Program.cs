@@ -8,7 +8,7 @@ namespace Day14
 {
     internal class Program
     {
-        private static Dictionary<string, string> hashes = new Dictionary<string, string>();
+        private static readonly Dictionary<string, string> Hashes = new Dictionary<string, string>();
         private static void Main()
         {
             SolvePart1();
@@ -64,9 +64,9 @@ namespace Day14
             while (count < goal)
             {
                 string hex;
-                if (hashes.ContainsKey(salt + index))
+                if (Hashes.ContainsKey(salt + index))
                 {
-                    hex = hashes[salt + index];
+                    hex = Hashes[salt + index];
                 }
                 else
                 {
@@ -82,9 +82,9 @@ namespace Day14
                     while (tmp < tmpMax)
                     {
                         string tmpHex;
-                        if (hashes.ContainsKey(salt + tmp))
+                        if (Hashes.ContainsKey(salt + tmp))
                         {
-                            tmpHex = hashes[salt + tmp];
+                            tmpHex = Hashes[salt + tmp];
                         }
                         else
                         {
@@ -117,7 +117,7 @@ namespace Day14
                 var hash = md5.ComputeHash(Encoding.UTF8.GetBytes(ss));
                 ss = BitConverter.ToString(hash).Replace("-", "").ToLower();
             }
-            hashes.Add(s, ss);
+            Hashes.Add(s, ss);
             return ss;
         }
     }
