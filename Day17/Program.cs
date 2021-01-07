@@ -21,7 +21,10 @@ namespace Day17
             // ReSharper disable once StringLiteralTypo
 
             var passcode = input.Split('\n')[0];
-            int x = 0, y = 0, destX = 3, destY = 3;
+            const int x = 0;
+            const int y = 0;
+            const int destX = 3;
+            const int destY = 3;
             var s = Utils.GetHash(passcode)[0..4];
             var solutions = new List<string>();
             if (ValidChars.Contains(s[1]))
@@ -41,7 +44,10 @@ namespace Day17
             // ReSharper disable once StringLiteralTypo
 
             var passcode = input.Split('\n')[0];
-            int x = 0, y = 0, destX = 3, destY = 3;
+            const int x = 0;
+            const int y = 0;
+            const int destX = 3;
+            const int destY = 3;
             var s = Utils.GetHash(passcode)[0..4];
             var solutions = new List<string>();
             if (ValidChars.Contains(s[1]))
