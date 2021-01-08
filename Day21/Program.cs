@@ -22,7 +22,6 @@ namespace Day21
             foreach (var s in data.Where(s => s != ""))
             {
                 var parts = s.Split(" ");
-                var oldPass = pass.ToString();
                 int x, y;
                 char a;
                 switch (parts[0])
