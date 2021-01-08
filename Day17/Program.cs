@@ -41,8 +41,6 @@ namespace Day17
         private static void SolvePart2()
         {
             var input = File.ReadAllText("Input.txt");
-            // ReSharper disable once StringLiteralTypo
-
             var passcode = input.Split('\n')[0];
             const int x = 0;
             const int y = 0;
