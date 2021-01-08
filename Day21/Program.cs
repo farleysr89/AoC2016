@@ -19,15 +19,16 @@ namespace Day21
             var input = File.ReadAllText("Input.txt");
             var data = input.Split('\n').ToList();
             var pass = new StringBuilder("abcdefgh");
-            int x, y;
-            char a, b;
             foreach (var s in data.Where(s => s != ""))
             {
                 var parts = s.Split(" ");
                 var oldPass = pass.ToString();
+                int x, y;
+                char a;
                 switch (parts[0])
                 {
                     case "swap":
+                        char b;
                         switch (parts[1])
                         {
                             case "position":
