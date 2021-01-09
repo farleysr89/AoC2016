@@ -31,14 +31,7 @@ namespace Day22
                 nodes.Add(new Node { X = x, Y = y, Size = size, Used = used, Available = available, UsedPercent = usedPercent });
             }
 
-            int count = 0;
-            foreach (var n in nodes.Where(x => x.Used > 0))
-            {
-                foreach (var nn in nodes.Where(x => x.X != n.X || x.Y != n.Y))
-                {
-                    if (n.Used <= nn.Available) count++;
-                }
-            }
+            var count = (from n in nodes.Where(x => x.Used > 0) from nn in nodes.Where(x => x.X != n.X || x.Y != n.Y) where n.Used <= nn.Available select n).Count();
             Console.WriteLine("Valid pairs = " + count);
         }
 
