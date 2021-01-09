@@ -18,11 +18,28 @@ namespace Day22
             var input = File.ReadAllText("Input.txt");
             var data = input.Split('\n').ToList();
             var nodes = new List<Node>();
-            foreach (var s in data.Where(s => s[0] == '/'))
+            foreach (var s in data.Where(s => s != "").Where(s => s[0] == '/'))
             {
-                var parts = s.Split(" ");
+                var parts = s.Split(" ").Where(p => p != "").ToArray();
+                var path = parts[0].Split('-');
+                var x = int.Parse(path[1][1..]);
+                var y = int.Parse(path[2][1..]);
+                var size = int.Parse(parts[1][0..^1]);
+                var used = int.Parse(parts[2][0..^1]);
+                var available = int.Parse(parts[3][0..^1]);
+                var usedPercent = int.Parse(parts[4][0..^1]);
+                nodes.Add(new Node { X = x, Y = y, Size = size, Used = used, Available = available, UsedPercent = usedPercent });
             }
-            Console.WriteLine("");
+
+            int count = 0;
+            foreach (var n in nodes.Where(x => x.Used > 0))
+            {
+                foreach (var nn in nodes.Where(x => x.X != n.X || x.Y != n.Y))
+                {
+                    if (n.Used <= nn.Available) count++;
+                }
+            }
+            Console.WriteLine("Valid pairs = " + count);
         }
 
         private static void SolvePart2()
