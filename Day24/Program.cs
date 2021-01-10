@@ -56,7 +56,7 @@ namespace Day24
             //    tmpLoc.Remove(l);
             //    minMoves = Math.Min(minMoves, RunMaze(startX, startY, l, tmpLoc, maze, minMoves, 0));
             //}
-            var test = MoveBFSSingle(locations.First(a => a.Marker == '2').GoalLocation.X, locations.First(a => a.Marker == '2').GoalLocation.Y, '3', maze);
+            //var test = MoveBFSSingle(locations.First(a => a.Marker == '2').GoalLocation.X, locations.First(a => a.Marker == '2').GoalLocation.Y, '3', maze);
             var Distances = new List<(char, char, int)>();
             foreach (var g in locations)
             {
@@ -64,7 +64,7 @@ namespace Day24
             }
             foreach (var g in locations)
             {
-                foreach (var gg in locations.Where(x => x.Marker != g.Marker && !Distances.Any(d => (d.Item1 == g.Marker && d.Item2 == g.Marker) || (d.Item2 == g.Marker && d.Item1 == g.Marker))))
+                foreach (var gg in locations.Where(x => x.Marker != g.Marker && !Distances.Any(d => (d.Item1 == g.Marker && d.Item2 == x.Marker) || (d.Item1 == x.Marker && d.Item2 == g.Marker))))
                 {
                     Distances.Add((g.Marker, gg.Marker, MoveBFSSingle(g.GoalLocation.X, g.GoalLocation.Y, gg.Marker, maze)));
                 }
