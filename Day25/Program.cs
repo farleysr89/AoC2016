@@ -9,21 +9,33 @@ namespace Day25
         private static void Main()
         {
             SolvePart1();
-            SolvePart2();
         }
 
         private static void SolvePart1()
         {
             var input = File.ReadAllText("Input.txt");
             var data = input.Split('\n').ToList();
-            Console.WriteLine("");
+            var x = int.Parse(data[1].Split(" ")[1]) * int.Parse(data[2].Split(" ")[1]);
+            var y = 0;
+            while (true)
+            {
+                if (CheckValid(x + y)) break;
+                y++;
+            }
+            Console.WriteLine("Solution equals " + y);
         }
 
-        private static void SolvePart2()
+        private static bool CheckValid(int x)
         {
-            var input = File.ReadAllText("Input.txt");
-            var data = input.Split('\n').ToList();
-            Console.WriteLine("");
+            var prev = '\0';
+            foreach (var c in Convert.ToString(x, 2))
+            {
+                if (prev == '\0') prev = c;
+                else if (prev == c) return false;
+                prev = c;
+            }
+
+            return true;
         }
     }
 }
