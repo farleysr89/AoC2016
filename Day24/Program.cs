@@ -50,13 +50,6 @@ namespace Day24
             }
 
             var minMoves = int.MaxValue;
-            //foreach (var l in locations)
-            //{
-            //    var tmpLoc = new List<char>(locations);
-            //    tmpLoc.Remove(l);
-            //    minMoves = Math.Min(minMoves, RunMaze(startX, startY, l, tmpLoc, maze, minMoves, 0));
-            //}
-            //var test = MoveBFSSingle(locations.First(a => a.Marker == '2').GoalLocation.X, locations.First(a => a.Marker == '2').GoalLocation.Y, '3', maze);
             var Distances = new List<(char, char, int)>();
             foreach (var g in locations)
             {
@@ -70,8 +63,31 @@ namespace Day24
                 }
             }
             //var test = MoveBFSSingle(startX, startY, '4', maze);
-            Console.WriteLine("");
+            var minDist = int.MaxValue;
+            foreach (var l in locations)
+            {
+                var tmpR = new List<Goal>(locations);
+                tmpR.Remove(l);
+                minDist = Math.Min(minDist, MinDist(begin, Distances, l, tmpR, 0));
+            }
+            Console.WriteLine("Smallest path = " + minDist);
             //Console.WriteLine("Min moves = " + minMoves);
+        }
+
+        private static int MinDist(Goal current, List<(char, char, int)> distances, Goal next, List<Goal> remaining, int moveCount)
+        {
+            moveCount += distances.First(d =>
+                (d.Item1 == current.Marker && d.Item2 == next.Marker) ||
+                (d.Item2 == current.Marker && d.Item1 == next.Marker)).Item3;
+            if (remaining.Count == 0) return moveCount;
+            var minDist = int.MaxValue;
+            foreach (var l in remaining)
+            {
+                var tmpR = new List<Goal>(remaining);
+                tmpR.Remove(l);
+                minDist = Math.Min(minDist, MinDist(next, distances, l, tmpR, moveCount));
+            }
+            return minDist;
         }
 
         private static void SolvePart2()
@@ -226,7 +242,7 @@ namespace Day24
                     Visited = new HashSet<Location>(visited.Append(new Location { X = s.CurLoc.X + 1, Y = s.CurLoc.Y })),
                     Finished = maze[s.CurLoc.Y][s.CurLoc.X + 1] == goal
                 });
-            if (CanMove(s.CurLoc.X - 1, s.CurLoc.Y, maze, s.Visited))
+            if (CanMove(s.CurLoc.X - 1, s.CurLoc.Y, maze, visited))
                 newStates.Add(new State
                 {
                     CurLoc = new Location
@@ -238,7 +254,7 @@ namespace Day24
                     Visited = new HashSet<Location>(visited.Append(new Location { X = s.CurLoc.X - 1, Y = s.CurLoc.Y }).ToList()),
                     Finished = maze[s.CurLoc.Y][s.CurLoc.X - 1] == goal
                 });
-            if (CanMove(s.CurLoc.X, s.CurLoc.Y + 1, maze, s.Visited))
+            if (CanMove(s.CurLoc.X, s.CurLoc.Y + 1, maze, visited))
                 newStates.Add(new State
                 {
                     CurLoc = new Location
